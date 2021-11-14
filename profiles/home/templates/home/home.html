@@ -1,0 +1,16 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block head %}
+	<link rel="stylesheet" href="{% static 'home/home.css' %}">
+	<title>home</title>
+{% endblock %}
+
+{% block body %}
+	<div class="content">
+		{% if user.is_authenticated %}
+			you are logged in as {{ user.email }}, <a href="{% url 'logout' %}">Logout</a>
+		{% else %}	
+			You are logged out, <a href="{% url 'login' %}">Login</a>
+		{% endif %}
+	</div>
+{% endblock %}

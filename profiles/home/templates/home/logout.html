@@ -1,0 +1,12 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block head %}
+	<link rel="stylesheet" href="{% static 'home/logout.css' %}">
+	<title>Logout</title>
+{% endblock %}
+
+{% block body %}
+	<div class="content">
+		You are logged out, <a href="{% url 'login' %}">Login again?</a> or return to <a href="{% url 'home' %}">Homepage</a>
+	</div>
+{% endblock %}
