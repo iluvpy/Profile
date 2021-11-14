@@ -1,8 +1,10 @@
 from django.http.response import Http404
 from django.shortcuts import redirect, render, HttpResponse
 from django.http import FileResponse
-from .forms import RegisterForm
+from .forms import RegisterForm, ProfileCreationForm
 from .constants import IMAGE_PATH
+from .utils import file_handler
+from .models import Profile
 import os
 
 
@@ -12,9 +14,13 @@ def index(request):
 	return redirect('home')
 
 def home(request):
-
+	user = request.user
+	profile = None
+	if user.is_authenticated:
+		profile = Profile.objects.filter(author_email=user.email).first()
 	context = {
-		'user': request.user
+		'user': user,
+		'profile': profile
 	}
 	return render(request, 'home/home.html', context=context)
 
@@ -31,6 +37,27 @@ def register(request):
 		'form': form
 	}
 	return render(request, 'home/register.html', context=context)
+
+
+def create_profile(request):
+	if request.method == 'POST':
+		form = ProfileCreationForm(request.POST)
+		if form.is_valid():
+			file = request.FILES['input-b1']
+			file_name = file_handler(file, static_dir='images/')
+			new_profile = Profile.objects.create(name=form.cleaned_data["name"], author_email=request.user.email, image_token=file_name)
+			return redirect('create-profile')
+	else:
+		form = ProfileCreationForm()
+	
+	user = request.user
+	profile = Profile.objects.filter(author_email=user.email).first()
+	context = {
+		'form': form,
+		'user': user,
+		'profile': profile
+	}
+	return render(request, 'home/create-profile.html', context=context)
 
 def image_token(request, token):
 	path = os.path.join(IMAGE_PATH, f'{token}')

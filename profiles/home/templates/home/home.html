@@ -8,7 +8,12 @@
 {% block body %}
 	<div class="content">
 		{% if user.is_authenticated %}
-			you are logged in as {{ user.email }}, <a href="{% url 'logout' %}">Logout</a>
+			{% if profile is not None %}
+				hello user with a profile {{profile.name}}
+				<img src="{% url 'image' token=profile.image_token %}" alt="">
+			{% else %}
+				You dont have a profile yet, <a href="{% url 'create-profile' %}">Create Profile?</a>
+			{% endif %}
 		{% else %}	
 			You are logged out, <a href="{% url 'login' %}">Login</a>
 		{% endif %}
