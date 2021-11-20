@@ -6,3 +6,17 @@ body {
 a {
 	text-decoration: none !important;
 }
+
+
+
+#login-logout {
+	position: absolute;
+	top: 15px;
+	left: 20px;
+}
+
+#home-link {
+	position: absolute;
+	top: 15px;
+	right: 20px;
+}

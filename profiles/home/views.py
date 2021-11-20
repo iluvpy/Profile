@@ -19,7 +19,6 @@ def home(request):
 	if user.is_authenticated:
 		profile = Profile.objects.filter(author_email=user.email).first()
 	context = {
-		'user': user,
 		'profile': profile
 	}
 	return render(request, 'home/home.html', context=context)
@@ -40,21 +39,20 @@ def register(request):
 
 
 def create_profile(request):
+	user = request.user
 	if request.method == 'POST':
 		form = ProfileCreationForm(request.POST)
 		if form.is_valid():
 			file = request.FILES['input-b1']
 			file_name = file_handler(file, static_dir='images/')
-			new_profile = Profile.objects.create(name=form.cleaned_data['name'], author_email=request.user.email, image_token=file_name)
-			return redirect('create-profile')
+			new_profile = Profile.objects.create(name=form.cleaned_data['name'], author_email=user.email, image_token=file_name)
+			return redirect('home')
 	else:
 		form = ProfileCreationForm()
 	
-	user = request.user
 	profile = Profile.objects.filter(author_email=user.email).first()
 	context = {
 		'form': form,
-		'user': user,
 		'profile': profile
 	}
 	return render(request, 'home/create-profile.html', context=context)

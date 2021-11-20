@@ -6,12 +6,6 @@
 {% endblock %}
 
 {% block body %}
-	{% if user.is_authenticated %}
-		<a id="logout" href="{% url 'logout' %}">logout</a>
-		{% if profile is not None %}
-			<a id="delete-profile" href="{% url 'delete-profile' %}">delete profile</a>
-		{% endif %}
-	{% endif %}
 	<div class="content">
 		{% if user.is_authenticated %}
 			{% if profile is not None %}
