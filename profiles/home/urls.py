@@ -7,6 +7,7 @@ urlpatterns = [
 	path('', views.index, name='index'),
 	path('home/', views.home, name='home'),
 	path('create-profile/', views.create_profile, name='create-profile'),
+	path('delete-profile/', views.delete_profile, name='delete-profile'),
 	path('image/<str:token>/', views.image_token, name='image'),
 	path('register/', views.register, name='register'),
 	path('login/', auth_views.LoginView.as_view(template_name='home/login.html'), name='login'),

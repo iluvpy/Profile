@@ -9,15 +9,19 @@
 
 {% block body %}
 	<div class="content">
-		{% if user.is_authenticated and profile is None %}
-			<form method="post" enctype="multipart/form-data">
-				{% csrf_token %}
-				{{ form|crispy }}
-				<input id="input-b1" name="input-b1" type="file" class="file" required data-browse-on-zone-click="true">
-				<button id="submit" class="btn btn-primary" type="submit">Create Profile</button>
-			</form>
+		{% if user.is_authenticated %}
+			{% if profile is None %}
+				<form method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+					{{ form|crispy }}
+					<input id="input-b1" name="input-b1" type="file" class="file" required data-browse-on-zone-click="true">
+					<button id="submit" class="btn btn-primary" type="submit">Create Profile</button>
+				</form>
+			{% else %}
+				you already have a profile, return to <a href="{% url 'home' %}">Homepage</a>
+			{% endif %}
 		{% else %}
-			You need to login or you already have a profile <a href="{% url 'login' %}">Login</a>
+			You need to login to create a profile <a href="{% url 'login' %}">Login</a>
 		{% endif %}
 	</div>
 {% endblock %}

@@ -6,11 +6,17 @@
 {% endblock %}
 
 {% block body %}
+	{% if user.is_authenticated %}
+		<a id="logout" href="{% url 'logout' %}">logout</a>
+		{% if profile is not None %}
+			<a id="delete-profile" href="{% url 'delete-profile' %}">delete profile</a>
+		{% endif %}
+	{% endif %}
 	<div class="content">
 		{% if user.is_authenticated %}
 			{% if profile is not None %}
-				hello user with a profile {{profile.name}}
-				<img src="{% url 'image' token=profile.image_token %}" alt="">
+				<img id="profile-img" src="{% url 'image' token=profile.image_token %}" alt="profile image">
+				hello {{profile.name}}
 			{% else %}
 				You dont have a profile yet, <a href="{% url 'create-profile' %}">Create Profile?</a>
 			{% endif %}

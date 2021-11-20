@@ -45,7 +45,7 @@ def create_profile(request):
 		if form.is_valid():
 			file = request.FILES['input-b1']
 			file_name = file_handler(file, static_dir='images/')
-			new_profile = Profile.objects.create(name=form.cleaned_data["name"], author_email=request.user.email, image_token=file_name)
+			new_profile = Profile.objects.create(name=form.cleaned_data['name'], author_email=request.user.email, image_token=file_name)
 			return redirect('create-profile')
 	else:
 		form = ProfileCreationForm()
@@ -65,3 +65,10 @@ def image_token(request, token):
 		image = open(path, 'rb')
 		return FileResponse(image)
 	return HttpResponse('image doesnt exist')
+
+def delete_profile(request):
+	user = request.user
+	profile = Profile.objects.filter(author_email=user.email).first()
+	if profile is not None:
+		profile.delete()
+	return redirect('home')

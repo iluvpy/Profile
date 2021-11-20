@@ -4,4 +4,28 @@
 	top: 5%;
 	left: 50%;
 	transform: translate(-50%);
+	text-align: center;
+}
+
+#profile-img {
+	border-radius: 50%;
+	width: 100px;
+	height: 100px;
+	margin: auto;
+	display: block;
+}
+
+#logout {
+	float: left;
+	position: absolute;
+	top: 15px;
+	left: 20px;
+}
+
+
+#delete-profile {
+	float: right;
+	position: absolute;
+	top: 15px;
+	right: 20px;
 }
