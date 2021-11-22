@@ -29,3 +29,26 @@
 	top: 15px;
 	right: 20px;
 }
+
+.options {
+	width: 70%;
+	height: 600px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+#settings-wheel {
+	position:absolute;
+	top: 94%;
+	left: 25px;
+	text-align: center;
+	transition: all ease-in-out 700ms;
+}
+
+#settings-wheel:hover {
+	cursor: pointer;
+	transform: rotate(90deg);
+}

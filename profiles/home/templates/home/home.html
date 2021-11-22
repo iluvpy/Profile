@@ -6,16 +6,26 @@
 {% endblock %}
 
 {% block body %}
-	<div class="content">
-		{% if user.is_authenticated %}
-			{% if profile is not None %}
+	{% if user.is_authenticated %}
+		{% if profile is not None %}
+			<div class="content">
 				<img id="profile-img" src="{% url 'image' token=profile.image_token %}" alt="profile image">
 				hello {{profile.name}}
-			{% else %}
-				You dont have a profile yet, <a href="{% url 'create-profile' %}">Create Profile?</a>
-			{% endif %}
-		{% else %}	
-			You are logged out, <a href="{% url 'login' %}">Login</a>
+			</div>
+			
+			<div class="options">
+				hello world
+			</div>
+			<img id="settings-wheel" src="{% static 'home/icons/settings.png' %}" alt="settings" onclick="">
+		{% else %}
+			<div class="content">
+				<p>You dont have a profile yet, <a href="{% url 'create-profile' %}">Create Profile?</a></p>
+			</div>
 		{% endif %}
-	</div>
+	{% else %}	
+		<div class="content">
+			<p>You are logged out</p>
+		</div>
+	{% endif %}
+	<script src="{% static 'home/js/home.js' %}"></script>
 {% endblock %}
